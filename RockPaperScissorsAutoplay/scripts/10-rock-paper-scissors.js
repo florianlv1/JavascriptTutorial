@@ -98,9 +98,20 @@ function userMove() {
   return userMove; 
 }
 
+let turnedOn = 0;
+let interval;
 
 function autoPlay() {
-  setInterval(function() {
-    playGame(userMove());
-  }, 3000);
+  if (turnedOn === 0) {
+    interval = setInterval(function() {
+      playGame(userMove());
+    }, 500);
+    document.querySelector('.js-autoPlay-Stop').innerHTML = "Stop";
+    turnedOn = 1;
+  } else if (turnedOn === 1) {
+    clearInterval(interval);
+    document.querySelector('.js-autoPlay-Stop').innerHTML = "Auto Play";
+    turnedOn = 0;
+  }
 }
+
